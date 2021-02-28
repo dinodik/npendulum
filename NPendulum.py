@@ -59,11 +59,6 @@ class NPendulum:
 		# 		B[q][0] -= m[j] * g * sin(state[q])
 		# solution = np.linalg.solve(A, B)
 
-		# dydx = np.zeros_like(state)
-		# for q in range(N):
-		# 	dydx[q] = state[N + q]
-		# 	dydx[N + q] = solution[q, 0]
-
 		A = np.zeros([N, N])
 		B = np.zeros([N, N])
 
@@ -84,6 +79,11 @@ class NPendulum:
 			E[u][0] += -1
 
 		solution = (np.linalg.inv(A).dot(B)).dot(E)
+
+		dydx = np.zeros_like(state)
+		for q in range(N):
+			dydx[q] = state[N + q]
+			dydx[N + q] = solution[q, 0]
 		
 		return dydx
 
