@@ -24,7 +24,7 @@ class NPendulum:
 			x[q] = x[q - 1] + l[q] *  sin(self.state[q])
 			y[q] = y[q - 1] + l[q] * -cos(self.state[q])
 
-		return x, y
+		return (x, y)
 
 	def calcEnergy(self):
 		(l, m, g) = self.params
@@ -88,5 +88,8 @@ class NPendulum:
 		return dydx
 
 	def step(self, dt):
+		# for q in range(N):
+		# 	self.state[N + q] += self.dstate_dt(state)[N + q] * dt
+		# 	self.state[q] += self.state[N + q] * dt
 		self.state = integrate.odeint(self.dstate_dt, self.state, [0, dt])[1]
 		self.time_elapsed += dt
